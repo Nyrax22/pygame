@@ -1,4 +1,4 @@
-import bluetooth
+import bluetooth #블루투스 라이브러리
 import struct
 
 class BLESimplePeripheral:
@@ -8,8 +8,8 @@ class BLESimplePeripheral:
         self._ble.irq(self._irq)
         ((self._handle_tx, self._handle_rx),) = self._ble.gatts_register_services((
             (bluetooth.UUID("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"), (
-                (bluetooth.UUID("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"), bluetooth.FLAG_NOTIFY),
-                (bluetooth.UUID("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"), bluetooth.FLAG_WRITE),
+                (bluetooth.UUID("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"), bluetooth.FLAG_NOTIFY), #RX
+                (bluetooth.UUID("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"), bluetooth.FLAG_WRITE),  #TX
             )),
         ))
         self._write_callback = None
@@ -32,4 +32,5 @@ class BLESimplePeripheral:
         self._ble.gap_advertise(interval_us, adv_data=self._payload)
 
     def on_write(self, callback):
+
         self._write_callback = callback
